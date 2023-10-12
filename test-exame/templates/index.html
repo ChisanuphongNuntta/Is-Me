@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Virtual Assistant</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Welcome to Virtual Assistant</h1>
+        <form method="POST" action="/response" class="mt-4">
+            <div class="mb-3">
+                <label for="user_input" class="form-label">User Input:</label>
+                <input type="text" id="user_input" name="user_input" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="common_name_input" class="form-label">Common Name:</label>
+                <input type="text" id="common_name_input" name="common_name_input" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <!-- Display responses here -->
+        <div class="mt-4">
+            <p><strong>You (type):</strong> {{ user_input }}</p>
+            <p><strong>Assistant:</strong></p>
+            {% for response_item in response %}
+            <div class="border p-3 mb-3">
+                <p><strong>Common Name:</strong> {{ response_item['Common Name'] }}</p>
+                <p><strong>Scientific Name:</strong> {{ response_item['Scientific Name'][0] }}</p>
+                <p><strong>Other Name:</strong> {{ response_item['Other Name'][0] }}</p>
+                <p><strong>Cycle:</strong> {{ response_item['Cycle'] }}</p>
+                <p><strong>Watering:</strong> {{ response_item['Watering'] }}</p>
+                <p><strong>Sunlight:</strong> {{ response_item['Sunlight'][0] }} and {{ response_item['Sunlight'][1] }}</p>
+                <p><strong>Image:</strong> <a href="{{ response_item['Image']['original_url'] }}" target="_blank">View Image</a></p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS (Optional, for certain features) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
